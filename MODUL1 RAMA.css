@@ -1,0 +1,8 @@
+#kami, #jenis, footer{
+    background: #edf5f4;
+}
+
+.nav-link:hover{
+color: rgb(26, 70, 203);
+text-decoration: underline;
+}
