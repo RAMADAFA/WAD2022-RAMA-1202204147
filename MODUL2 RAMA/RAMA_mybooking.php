@@ -40,6 +40,41 @@ $tanggalSewa = $_POST['tanggalSewa'];
 $durasi = $_POST['durasi'];
 $phone = $_POST['phone'];
 $tipe = $_POST['tipe'];
+
+//Total_Price
+if (isset($_POST['servis'])) {
+  $servis = $_POST['servis'];
+}
+else {
+  $servis = '';
+}
+
+if ($tipe == "avanza") {
+  $total_price = $durasi * 250000;
+} else if ($tipe == "pajero") {
+  $total_price = $durasi * 600000;
+} else if ($tipe == "range rover") {
+  $total_price = $durasi * 900000;
+}
+
+// Service
+if (!empty($servis)) {
+  foreach ($servis as $srv) {
+      if ($srv == "health") {
+          $total_price += 25000;
+          '<li>' . $srv . '</li>';
+      }
+      else if($srv == "driver") {
+          $total_price += 100000;
+          '<li>' . $srv . '</li>';
+      }
+      else {
+          $total_price += 250000;
+          '<li>' . $srv . '</li>';
+      }
+  }
+}
+
 ?>
 
     <table class="table mt-4">
@@ -61,10 +96,21 @@ $tipe = $_POST['tipe'];
              <td scope="row"><?php echo rand()?></td>
              <td><?php echo $nama;?></td>
              <td><?php echo date('d F Y', strtotime($tanggalSewa)) ?></td>
-             <td><?php echo "habis"?></td>
+             <td><?php echo date('d F Y', strtotime($tanggalSewa."+".$durasi."days")) ?></td>
              <td><?php echo $tipe?></td>
              <td><?php echo $phone?></td>
-             <td><?php "servis"?></td>
+             <td><?php 
+                    if(count($servis)>0){
+                      foreach ($servis as $serv){
+                        echo $serv.'<br>';
+                      }
+                    }
+                    else{
+                      echo "No service.";
+                    }
+                  ?></td>
+              <td><?php echo $total_price?></td>
+            
 
             </tr>
            

@@ -1,3 +1,11 @@
+<?php
+    $tipe ="";
+    if(isset($_GET['tipe'])){
+      $tipe = $_GET['tipe'];
+    }
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,12 +39,16 @@
   </div>
 </nav>
 <section id="RAMA_booking.php">
+
         <div class="container">
             <center><h2 class="mt-5">Pendaftaran Mobil</h2></center>
             <form method="POST"     action="RAMA_mybooking.php">
             <div class="mb-3">
+            <?php if($tipe != ''){ ?>
+            <img src="<?php echo $tipe.'.png.'?>" class = "card-img-top" alt=".....">
+            <?php } ?>
                   <label for="nama" class="form-label">Nama_NIM</label>
-                  <input type="text" class="form-control" name="nama">
+                  <input type="text" class="form-control" value = "Rama_1202204147" name="nama" readonly>
                 </div>
                 <div class="mb-3">
                   <label for="nama" class="form-label">Book Date</label>
@@ -54,10 +66,10 @@
                     <label for="mobil" class="form-label">Jenis</label>
                     <select class="form-select" name="tipe">
                 <option selected disabled>Pilih jenis mobil</option>
-                <option value="avanza">avanza</option>
-                <option value="pajero">pajero</option>
-                <option value="range rover">range rover</option>
-                <option value="ayla">ayla</option>
+                <option value="avanza" <?php if($tipe == "kendaraan1") echo "selected";?>>avanza</option>
+                <option value="pajero" <?php if($tipe == "mobil2") echo "selected";?>>pajero</option>
+                <option value="range rover" <?php if($tipe == "mobil3") echo "selected";?>>range rover</option>
+                <option value="ayla" <?php if($tipe == "mobil4") echo "selected";?>>ayla</option>
               </select>
                  </div>
                  <div class="mb-3">
@@ -67,19 +79,19 @@
                   <div class="mb-3 mt-4">
                   <label for="mobil" class="form-label">Add Services(s)</label>
                   <div class="form-check">
-                     <input class="form-check-input" type="checkbox" value="health protocol" name="servis">
+                     <input class="form-check-input" type="checkbox" value="health protocol" name="servis[]">
                      <label class="form-check-label" for="flexCheckDefault">
                          Healt Protocol (Rp25.000)
                      </label>
                     </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="driver" name="servis">
+                    <input class="form-check-input" type="checkbox" value="driver" name="servis[]">
                     <label class="form-check-label" for="flexCheckChecked">
                          Driver (Rp100.000)
                         </label>
                     </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="fuel filled" name="servis">
+                    <input class="form-check-input" type="checkbox" value="fuel filled" name="servis[]">
                     <label class="form-check-label" for="flexCheckChecked">
                          Fuel Filled (Rp250.000)
                         </label>

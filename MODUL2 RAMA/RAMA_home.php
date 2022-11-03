@@ -42,7 +42,7 @@
                 <div class="card-body">
                   <h5 class="type">Avanza</h5>
                   <p class="text">mobil ini memiliki spesifikasi 6 kursi penumpang dan 1 pengemudi, serta mobil ini manual.</p>
-                  <a href="RAMA_booking.php" class="btn btn-primary">Go book</a>
+                  <a href="RAMA_booking.php?tipe=kendaraan1" class="btn btn-primary">Go book</a>
                 </div>
               </div>
         </div>
@@ -52,7 +52,7 @@
                 <div class="card-body">
                   <h5 class="type">Pajero</h5>
                   <p class="text">mobil ini memiliki spesifikasi 7 kursi penumpang dan 1 pengemudi, serta mobil ini matic.</p>
-                  <a href="RAMA_booking.php" class="btn btn-primary">Go book</a>
+                  <a href="RAMA_booking.php?tipe=mobil2" class="btn btn-primary">Go book</a>
                 </div>
               </div>
         </div>
@@ -62,7 +62,7 @@
                 <div class="card-body">
                   <h5 class="type">Range Rover</h5>
                   <p class="text">mobil ini memiliki spesifikasi 5 kursi penumpang dan 1 pengemudi, serta mobil ini matic.</p>
-                  <a href="RAMA_booking.php" class="btn btn-primary">Go book</a>
+                  <a href="RAMA_booking.php?tipe=mobil3" class="btn btn-primary">Go book</a>
                 </div>
               </div>
         </div>
@@ -72,7 +72,7 @@
                 <div class="card-body">
                   <h5 class="type">Ayla</h5>
                   <p class="text">mobil ini memiliki spesifikasi 4 kursi penumpang dan 1 pengemudi, serta mobil ini matic.</p>
-                  <a href="RAMA_booking.php" class="btn btn-primary">Go book</a>
+                  <a href="RAMA_booking.php?tipe=mobil4" class="btn btn-primary">Go book</a>
                 </div>
               </div>
         </div>
