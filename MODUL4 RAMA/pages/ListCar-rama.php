@@ -14,7 +14,7 @@
     </script>
     <link rel="stylesheet" href="../asset/style/index.css">
 
-    <!--Navbar-->
+    <!--tampilan atas-->
     <section>
         <nav class="navbar navbar-expand-lg bg-primary fixed-top">
             <div class="container-fluid">
@@ -32,14 +32,30 @@
                             <a class="nav-link" href="add-rama.php">My Car</a>
                         </li>
                     </ul>
-                    <a class="btn btn btn-light" href="add-rama.php" role="button">Add Car</a>
+                    <div class="row">
+                        <div class="col">
+                            <a class="btn btn btn-light" href="add-rama.php" role="button">Add Car</a>
+                        </div>
+                        <div class="col">
+                            <div class="dropdown">
+                                <button type="button" class="btn btn btn-light dropdown-toggle"
+                                    data-bs-toggle="dropdown">
+                                    rama
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="profil-rama.php">Profile</a></li>
+                                    <li><a class="dropdown-item" href="homelog-rama.php">LogOut</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
     </section>
 
 
-    <!--List Car-->
+    <!--Listcar ku disini -->
     <section>
         <div class="additem">
             <div class="judul">
@@ -61,8 +77,8 @@
                         <div class="card-body">
                             <h5 class="card-title"><?php echo $select['nama_mobil']?></h5>
                             <p class="card-text"><?php echo $select['deskripsi']?></p>
-                            <a href="Detail-rama.php"
-                                class="btn btn-primary btn-edit me-4">Detail</a>
+                            <a href="../pages/Detail-rama.php?id_mobil=<?php echo $select['id_mobil']?>"
+                                class="btn btn-primary btn-edit me-4">DETAIL</a>
                             <a href="../config/delete.php?id_mobil=<?php echo $select['id_mobil']?>"
                                 class="btn btn-danger btn-edit">Hapus</a>
                         </div>

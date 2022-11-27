@@ -14,7 +14,7 @@
     </script>
     <link rel="stylesheet" href="../asset/style/index.css">
 
-    <!--Navbar-->
+    <!--tampilan atas-->
     <section>
         <nav class="navbar navbar-expand-lg bg-primary fixed-top">
             <div class="container-fluid">
@@ -32,12 +32,29 @@
                             <a class="nav-link" href="ListCar-rama.php">My Car</a>
                         </li>
                     </ul>
+                    <div class="row">
+                        <div class="col">
+                            <a class="btn btn btn-light" href="add-rama.php" role="button">Add Car</a>
+                        </div>
+                        <div class="col">
+                            <div class="dropdown">
+                                <button type="button" class="btn btn btn-light dropdown-toggle"
+                                    data-bs-toggle="dropdown">
+                                    Rama
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="profil-rama.php">Profile</a></li>
+                                    <li><a class="dropdown-item" href="login-rama.php">LogOut</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
     </section>
 
-    <!--Add Form-->
+    <!--Add Formnya disini-->
     <section>
         <div class="additem">
             <div class="judul">

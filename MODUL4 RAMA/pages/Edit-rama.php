@@ -14,7 +14,7 @@
     </script>
     <link rel="stylesheet" href="../asset/style/index.css">
 
-    <!--Navbar-->
+    <!--tampilan atas-->
     <section>
         <nav class="navbar navbar-expand-lg bg-primary fixed-top">
             <div class="container-fluid">
@@ -26,61 +26,82 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="#home_link">Home</a>
+                            <a class="nav-link" href="Home-rama.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="add-rama.php">My Car</a>
+                            <a class="nav-link" href="ListCar-rama.php">My Car</a>
                         </li>
                     </ul>
+                    <div class="row">
+                        <div class="col">
+                            <a class="btn btn btn-light" href="add-rama.php" role="button">Add Car</a>
+                        </div>
+                        <div class="col">
+                            <div class="dropdown">
+                                <button type="button" class="btn btn btn-light dropdown-toggle"
+                                    data-bs-toggle="dropdown">
+                                    rama
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="profil-rama.php">Profile</a></li>
+                                    <li><a class="dropdown-item" href="homelog-rama.php">LogOut</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
     </section>
 
     <?php
-        $id_mobil = $_GET['id_mobil'];
         include '../config/connector.php';
-        $listMobil = mysqli_query($connect, "select * from showroom_rama_table where id_mobil = '$id_mobil'");
-        while($data = mysqli_fetch_array($listMobil)){
+    
+        $id_mobil = $_GET['id_mobil'];
+        $daftarmbl = mysqli_query($connect, "select * from showroom_rama_table where id_mobil = '$id_mobil'");
+        while($informasi = mysqli_fetch_array($daftarmbl)){
     ?>
 
-    <!--Item Detail-->
-    <section style="margin: 100px;">
-        <div class="row">
-            <div class="col" style="margin-top: 200px;">
-                <img src="../asset/images/<?php echo $data['foto_mobil']?>" alt="<?php echo $data['nama_mobil']?>" width="100%"
-                    height="312px" />
+    <!--Edit Item aku  -->
+    <section>
+        <div class="additem">
+            <div class="judul">
+                <h1>Edit Data</h1>
+                <h6 style="color: grey;">Edit data mobil : <?php echo $informasi['nama_mobil']?></h6>
             </div>
-            <div class="col">
-                <div style="padding: 60px;">
-                    <div class="additem">
-                        <div class="judul">
-                            <h1>Tambah Mobil</h1>
-                            <h6 style="color: grey;">Tambah mobil baru anda ke list Show Room</h6>
-                        </div>
-                        <form action="../config/insert.php" method="POST" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col">
+                    <img class="img-fluid" src="../asset/images/<?php echo $informasi['foto_mobil']?>"
+                        alt="<?php echo $informasi['nama_mobil']?>" style="width: 600px;" />
+                </div>
+                <div class="col">
+                    <div>
+                        <form action="../config/edit.php?id_mobil=<?php echo $informasi['id_mobil']?>" method="POST"
+                            enctype="multipart/form-data">
                             <div class="mb-3">
                                 <label for="nama_mobil" class="form-label">Nama Mobil</label>
                                 <input type="text" class="form-control" id="nama_mobil" name="nama_mobil"
-                                    placeholder="avanza">
+                                    value="<?php echo $informasi['nama_mobil'];?>">
                             </div>
                             <div class="mb-3">
                                 <label for="nama_pemilik" class="form-label">Nama Pemilik</label>
                                 <input type="text" class="form-control" id="nama_pemilik" name="nama_pemilik"
-                                    placeholder="Dafa Dinda Bayu Rama Dika-1202204147">
+                                    value="<?php echo $informasi['pemilik_mobil'];?>">
                             </div>
-                            <div class="mb-3">
+                            <div class=" mb-3">
                                 <label for="merek" class="form-label">Merk</label>
-                                <input type="text" class="form-control" id="merek" name="merek" placeholder="avanza">
+                                <input type="text" class="form-control" id="merek" name="merek"
+                                    value="<?php echo $informasi['merk_mobil'];?>">
                             </div>
                             <div class="mb-3">
                                 <label for="tgl_beli" class="form-label">Tanggal Beli</label>
                                 <input type="date" class="form-control" id="tgl_beli" name="tgl_beli"
-                                    placeholder="11/12/2022">
+                                    value="<?php echo $informasi['tanggal_beli'];?>">
                             </div>
                             <div class="mb-3">
                                 <label for="deskripsi" class="form-label">Deskripsi</label>
-                                <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3"></textarea>
+                                <input type="text" class="form-control" id="deskripsi" name="deskripsi" rows="3"
+                                    value="<?php echo $informasi['deskripsi'];?>">
                             </div>
                             <div class="mb-3">
                                 <label for="foto_mobil" class="form-label">Foto</label>
@@ -92,19 +113,21 @@
                                     <p>Status Pembayaran</p>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="status" id="lunas" value="Lunas">
+                                    <input class="form-check-input" type="radio" name="status" id="lunas" value="Lunas"
+                                        <?php if($informasi['status_pembayaran']=='Lunas') echo 'checked'?>>
                                     <label class="form-check-label" for="lunas">Lunas</label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="status" id="belum_lunas"
-                                        value="Belum Lunas">
+                                        value="Belum Lunas"
+                                        <?php if($informasi['status_pembayaran']=='Belum Lunas') echo 'checked'?>>
                                     <label class="form-check-label" for="belum_lunas">Belum Lunas</label>
                                 </div>
                             </div>
                             <div>
                                 <br>
                                 <div class="col-12">
-                                    <button class="btn btn-primary" type="submit">Selesai</button>
+                                    <button class="btn btn-primary" type="submit">Simpan</button>
                                 </div>
                             </div>
                         </form>
@@ -113,7 +136,6 @@
             </div>
         </div>
     </section>
-
     <?php
         }
     ?>
