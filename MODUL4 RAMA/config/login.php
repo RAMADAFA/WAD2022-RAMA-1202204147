@@ -4,14 +4,14 @@
     $email=$_POST['email'];
     $password=$_POST['password'];
     
-    $query=mysqli_query($connector, "SELECT * from user_rama where email = '$email' && password = '$password'");
+    $query=mysqli_query($connector, "SELECT * from users where email = '$email' && password = '$password'");
     $rows=mysqli_num_rows($query);
 
-    if ($rows) {
+    if (!$rows) {
         $data=mysqli_fetch_assoc($query);
-        if (isset($_POST['rember'])){
-            $rember = $_POST['rember'];
-            setcookie('rember', $rember, time()+4344*5, '/');
+        if (isset($_POST['remember'])){
+            $remember = $_POST['remember'];
+            setcookie('remember', $remember, time()+4344*5, '/');
         }
 
         setcookie('email', $email, time()+4344*5, '/');

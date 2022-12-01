@@ -5,8 +5,8 @@
     $name = $_POST['nama'];
     $email = $_POST['email'];
     $hp = $_POST['hp'];
-    $pswrd = $_POST['pswrd'];
-    $pswrd2 = $_POST['pswrd2'];
+    $pswrd = $_POST['pass'];
+    $pswrd2 = $_POST['conf_pass'];
 
     if($pswrd == $pswrd2){
         $query = mysqli_query($connector, "INSERT INTO user_rama (id, nama, email, password, no_hp) 
