@@ -1,111 +1,56 @@
-@extends('header')
-<body>
-  <!-- Navbar Start -->
-  <?php
-    $getUser = mysqli_query($connection, "select * from users WHERE email='$_SESSION[email]'");
-    $dataUser = mysqli_fetch_array($getUser);
-    ?>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-     
-      <div class="container">
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNavAltMarkup"
-          aria-controls="navbarNavAltMarkup"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav">
-            <a class="nav-link" href="">Home</a>
-            <a class="nav-link" href="">MyCar</a>
-          </div>
+@extends('after.header')
+@section('content')
+@auth
+   
+    <div class="container my-3">
+        <div class="row">
+            <div class="col">
+                <h2 class="fw-bold"></h2>
+                <p>{{$mobil->name}}</p>
+                <p>{{$mobil->description}}</p>
+                <img src="/image/{{$mobil->image}}" alt="" style="width: 18rem;">
+            </div>
+            <div class="col">
+                <form action="/mobil/{{$mobil-> id}}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="user_id" value="{{$mobil->user_id}}">
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Nama mobil</label>
+                            <input type="text" name="name" class="form-control" value="{{$mobil->name}}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Nama pemilik</label>
+                            <input type="text" name="owner" class="form-control" value="{{$mobil->owner}}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Merk</label>
+                            <input type="text" name="merk" class="form-control" value="{{$mobil->brand}}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Tanggal</label>
+                            <input type="datetime-local" name="tanggal" class="form-control" value="{{$mobil->purchase_date}}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Deskripsi</label>
+                            <textarea type="text" name="deskripsi" class="form-control">{{$mobil->description}}</textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Foto</label>
+                            <input type="file" name="img_path" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Status</label>
+                            <div class="form-check">
+                                <input type="radio"  id="option1" name="status" value="Lunas"  {{ ($mobil->status=="Lunas")? "checked" : "" }} >Lunas</label>
+                                <input type="radio" id="option2" name="status" value="Belum Lunas" {{ ($mobil->status=="Belum Lunas")? "checked" : "" }} >Belum Lunas</label>
+                            </div>
+                        </div>
+                    <input type="submit" class="btn btn-primary" name="edit" id="toastbtn" value="Simpan">
+                </form>
+            </div>
         </div>
-        <div class="d-flex">
-          <a href="../pages/Add-Rama.php">
-          <button class="btn btn-outline-dark" type="submit" style="color: white;">add car</button></a>
-          <div class="dropdown ms-4">
-            <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-              <?php echo $_SESSION['email'];?>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="">Profile</a></li>
-              <li><a class="dropdown-item" href="">Logout</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </nav>
-  <!-- Navbar End -->
-
-  <!-- Form Start -->
-  <section id='detail'>
-    <div class="container">
-      <?php
-      while ($obtainData = mysqli_fetch_array($result)) {
-        echo "
-                <h1 class='add'>" . $obtainData["nama_mobil"] . "</h1>
-                <p class='addparagraf'>Detail Mobil " . $obtainData["nama_mobil"] . "</p>
-                <div class='d-flex justify-content-center align-items-start gap-5 mt-5'>
-                  <img src='../asset/images/" . $obtainData["foto_mobil"] . "' alt='foto_mobil'>
-                  <form action='../config/edit.php?id=" . $obtainData["id_mobil"] . "' method='POST' enctype='multipart/form-data'>
-                    <label for='nama'>Nama Mobil</label>
-                    <input type='text' id='nama' name='nama' value='" . $obtainData["nama_mobil"] . "' >
-                    <label for='pemilik'>Nama Pemilik</label>
-                    <input type='text' id='pemilik' name='pemilik' value='" . $obtainData["pemilik_mobil"] . "' >
-                    <label for='merk'>Merk</label>
-                    <input type='text' id='merk' name='merk' value='" . $obtainData["merk_mobil"] . "' >
-                    <label for='tanggalbeli'>Tanggal Beli</label>
-                    <input type='date' id='tanggalbeli' name='tanggalbeli' value='" . $obtainData["tanggal_beli"] . "' >
-                    <label for='desc'>Deskripsi</label>
-                    <textarea id='desc' name='desc' style='height:200px; width: 600px; border-radius: 8px;' > " . $obtainData["deskripsi"] . " </textarea>
-                    <label for='inputGroupFile01'>Foto</label>
-                    <input type='file' class='form-control' id='inputGroupFile01' value='" . $obtainData["foto_mobil"] . "' name='gambar' style='height: 40px;'>
-                    <label for='status'>Status Pembayaran</label>
-                    <span class='d-flex'>
-                      <input type='radio' name='status' id='lunas' value='Lunas' " . (($obtainData["status_pembayaran"] == 'Lunas') ? 'checked="checked"' : "") . " style='width: 15px; height: 15px; margin-right:10px;'>
-                      <label for='lunas' style='margin-top: 15px; margin-right:10px;'>Lunas</label>
-                      <input type='radio' name='status' id='belum' value='Belum Lunas' " . (($obtainData["status_pembayaran"] == 'Belum Lunas') ? 'checked="checked"' : "") . " style='width: 15px; height: 15px; margin-right:10px;'>
-                      <label for='belum' style='margin-top: 15px;'>Belum Lunas</label>
-                    </span>
-                    <button type='submit' class='btn btn-primary' style='margin-top: 40px;'>Selesai</button>
-                  </form>
-                </div>
-            ";
-      }
-      ?>
     </div>
-  </section>
-  <!-- Form End -->
-
-  <div class="container">
-<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-animation="true" data-delay="5000" data-autohide="false">
-    <div class="toast-header">
-        <span class="rounded mr-2 bg-warning" style="width: 15px;height: 15px"></span>
-
-        <strong class="mr-auto">Alert</strong>
-        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-  <span aria-hidden="true">&times;</span>
-</button>
-    </div>
-    <div class="toast-body">
-        Data Berhasil diupdate.
-    </div>
-</div>
-
-  <script src="asset/js/jquery.js"></script>
-    <script src="asset/js/popper.js"></script>
-    <script src="asset/js/bootstrap.js"></script>
-
-
-    <script>
-        $('.toast').toast('show');
-    </script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-</body>
-
-</html>
+</body></html>
+@endauth
+@endsection

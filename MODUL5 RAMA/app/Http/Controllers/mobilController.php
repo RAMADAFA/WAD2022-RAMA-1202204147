@@ -46,7 +46,7 @@ class mobilController extends Controller
     {
         $mobil = mobil::find($id);
         
-        return view('mobil.edit', compact('mobil')); 
+        return view('after.edit', compact('mobil')); 
     }
 
     public function update(Request $request, $id)
@@ -61,9 +61,13 @@ class mobilController extends Controller
         }
 
         mobil::find($id)->update([
-            'nama' => $request -> name,
-            'harga' => $request -> price,
-            'gambar' => $imgName
+            'user_id' => $request -> user_id,
+            'owner' => $request -> owner,
+            'brand' => $request -> merk,
+            'purchase_date' => $request -> tanggal,
+            'description' => $request -> deskripsi,
+            'image' => $imgName,
+            'status' => $request -> status,
         ]);
 
         return redirect('/mobil');
